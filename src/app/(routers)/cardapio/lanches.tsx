@@ -99,7 +99,7 @@ const Cardapio = () => {
                     <li key={idx}>{item}</li>
                   ))}
                 </ul>
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between items-center mt-3">
                   <span className="font-bold text-lg text-green-600">
                     R$ {lanche.preco.toFixed(2)}
                   </span>
