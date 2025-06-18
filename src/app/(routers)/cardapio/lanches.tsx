@@ -89,11 +89,11 @@ const Cardapio = () => {
             <Card key={lanche.id} className="rounded-2xl shadow-md min-w-80">
               <CardHeader>
                 <CardTitle className="text-xl">{lanche.nome}</CardTitle>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm text-muted-foreground ">
                   {lanche.descricao}
                 </p>
               </CardHeader>
-              <CardContent>
+              <CardContent  className="flex flex-1 flex-col justify-between">
                 <ul className="text-sm list-disc pl-5 mb-3">
                   {lanche.ingredientes.map((item, idx) => (
                     <li key={idx}>{item}</li>

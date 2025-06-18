@@ -13,44 +13,28 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import Cardapio from "./lanches";
+import Pastel from "./pasteis";
 
 
 
 export default function ListaLanches() {
   return (
  
-      <Tabs defaultValue="account" >
+      <Tabs defaultValue="lanches" >
         <TabsList className=" w-full flex justify-center">
-          <TabsTrigger value="account">Account</TabsTrigger>
-          <TabsTrigger value="password">Password</TabsTrigger>
+          <TabsTrigger value="lanches">Lanches</TabsTrigger>
+          <TabsTrigger value="pastel">Pastel</TabsTrigger>
         </TabsList>
-        <TabsContent value="account">
+
+        <TabsContent value="lanches">
             <Cardapio />
         </TabsContent>
 
-        <TabsContent value="password">
-          <Card>
-            <CardHeader>
-              <CardTitle>Password</CardTitle>
-              <CardDescription>
-                Change your password here. After saving, you&apos;ll be logged
-                out.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="grid gap-6">
-              <div className="grid gap-3">
-                <Label htmlFor="tabs-demo-current">Current password</Label>
-                <Input id="tabs-demo-current" type="password" />
-              </div>
-              <div className="grid gap-3">
-                <Label htmlFor="tabs-demo-new">New password</Label>
-                <Input id="tabs-demo-new" type="password" />
-              </div>
-            </CardContent>
-            <CardFooter>
-              <Button>Save password</Button>
-            </CardFooter>
-          </Card>
+        <TabsContent value="pastel">             
+           
+          <Pastel />
+                  
+         
         </TabsContent>
       </Tabs>
    
