@@ -48,9 +48,9 @@ export function AppSidebar() {
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel className="text-2xl p-2 flex gap-2 items-center">
-            <ModeToggle/>
+           
             <Link href="/">            
-            Delivery
+            HOME
             </Link>
           </SidebarGroupLabel>
           <SidebarGroupContent >
@@ -58,8 +58,7 @@ export function AppSidebar() {
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    <Link href={item.url}>
-                   
+                    <Link href={item.url}>                   
                       <span className="text-xl">{item.title}</span>
                     </Link>
                   </SidebarMenuButton>
@@ -69,6 +68,7 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+        <ModeToggle/>              
     </Sidebar>
   );
 }
