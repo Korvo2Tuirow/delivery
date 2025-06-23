@@ -1,7 +1,11 @@
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-
-
 
 const lanches = [
   {
@@ -82,35 +86,56 @@ const lanches = [
 ];
 
 const Cardapio = () => {
-    return ( 
+  return (
+    <div className="flex flex-wrap gap-4 p-4 justify-center">
+      {lanches.map((lanche) => (
+        <Accordion
+          type="single"
+          collapsible
+          className="w-1/2 p-3 border rounded-lg shadow-md"
+          key={lanche.id}
+        >
+          <AccordionItem
+            value="item-1"
+            key={lanche.id}
+            className="rounded-2xl  min-w-80"
+          >
+            <AccordionTrigger>
+              <div className="text-xl">{lanche.nome}</div>
+            </AccordionTrigger>
 
-         <div className="flex flex-wrap gap-4 p-4 " >
-          {lanches.map((lanche) => (
-            <Card key={lanche.id} className="rounded-2xl shadow-md min-w-80">
-              <CardHeader>
-                <CardTitle className="text-xl">{lanche.nome}</CardTitle>
+            <AccordionContent className="flex flex-col gap-4 text-balance">
+              <div className="flex flex-1 flex-col justify-between">
                 <p className="text-sm text-muted-foreground ">
                   {lanche.descricao}
                 </p>
-              </CardHeader>
-              <CardContent  className="flex flex-1 flex-col justify-between">
+
                 <ul className="text-sm list-disc pl-5 mb-3">
                   {lanche.ingredientes.map((item, idx) => (
                     <li key={idx}>{item}</li>
                   ))}
                 </ul>
-                <div className="flex justify-between items-center mt-3">
-                  <span className="font-bold text-lg text-green-600">
-                    R$ {lanche.preco.toFixed(2)}
-                  </span>
-                  <Button variant="default" className="text-white">Pedir</Button>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+              </div>
+            </AccordionContent>
+            <div className="flex justify-between items-center ">
+              <span className="font-bold text-lg text-green-600">
+                R$ {lanche.preco.toFixed(2)}
+              </span>
+              <div className="flex items-center gap-x-3">
+                <Button variant="destructive" className="text-white">
+                  -
+                </Button>
+                <p className="bg-white text-black px-5 font-bold text-2xl rounded-lg ">5</p>
+                <Button variant="default" className="text-white">
+                  +
+                </Button>
+              </div>
+            </div>
+          </AccordionItem>
+        </Accordion>
+      ))}
+    </div>
+  );
+};
 
-          </div>
-     );
-}
- 
 export default Cardapio;
