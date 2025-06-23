@@ -92,15 +92,15 @@ const Cardapio = () => {
         <Accordion
           type="single"
           collapsible
-          className="w-1/2 p-3 border rounded-lg shadow-md"
+          className="w-full pb-4 px-4 border rounded-lg shadow-md "
           key={lanche.id}
         >
           <AccordionItem
             value="item-1"
             key={lanche.id}
-            className="rounded-2xl  min-w-80"
+            className="rounded-2xl  min-w-80 "
           >
-            <AccordionTrigger>
+            <AccordionTrigger className="flex items-center justify-between mb-5 ">
               <div className="text-xl">{lanche.nome}</div>
             </AccordionTrigger>
 
