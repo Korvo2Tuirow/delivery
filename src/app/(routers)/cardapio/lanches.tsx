@@ -5,7 +5,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
 
 const lanches = [
   {
@@ -100,13 +100,16 @@ const Cardapio = () => {
             key={lanche.id}
             className="rounded-2xl  min-w-80 "
           >
-            <AccordionTrigger className="flex items-center justify-between mb-5 ">
-              <div className="text-xl">{lanche.nome}</div>
+            <AccordionTrigger>
+              <div className="text-xl flex gap-4">
+              <p>{lanche.nome}</p>
+              <p>( R$ {lanche.preco.toFixed(2)} )</p>
+              </div>
             </AccordionTrigger>
 
             <AccordionContent className="flex flex-col gap-4 text-balance">
               <div className="flex flex-1 flex-col justify-between">
-                <p className="text-sm text-muted-foreground ">
+                <p className="text-sm text-muted-foreground mb-5">
                   {lanche.descricao}
                 </p>
 
@@ -125,7 +128,7 @@ const Cardapio = () => {
                 <Button variant="destructive" className="text-white">
                   -
                 </Button>
-                <p className="bg-white text-black px-5 font-bold text-2xl rounded-lg ">5</p>
+                <p className="bg-white text-black px-5 font-bold text-2xl rounded-lg ">0</p>
                 <Button variant="default" className="text-white">
                   +
                 </Button>
