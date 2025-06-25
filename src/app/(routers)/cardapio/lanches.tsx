@@ -5,7 +5,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
-
+import { useState } from "react";
 
 const lanches = [
   {
@@ -86,57 +86,94 @@ const lanches = [
 ];
 
 const Cardapio = () => {
+  const [quantidades, setQuantidades] = useState<Record<number, number>>({});
+
+  const incrementar = (id: number) => {
+    setQuantidades((prev) => ({
+      ...prev,
+      [id]: (prev[id] || 0) + 1,
+    }));
+  };
+
+  const decrementar = (id: number) => {
+    setQuantidades((prev) => ({
+      ...prev,
+      [id]: Math.max((prev[id] || 0) - 1, 0),
+    }));
+  };
+
   return (
     <div className="flex flex-wrap gap-4 p-4 justify-center">
-      {lanches.map((lanche) => (
-        <Accordion
-          type="single"
-          collapsible
-          className="w-full pb-4 px-4 border rounded-lg shadow-md "
-          key={lanche.id}
-        >
-          <AccordionItem
-            value="item-1"
+      {lanches.map((lanche) => {
+        const quantidade = quantidades[lanche.id] || 0;
+        const total = (quantidade * lanche.preco).toFixed(2);
+
+        return (
+          <Accordion
+            type="single"
+            collapsible
+            className="w-full pb-4 px-4 border rounded-lg shadow-md "
             key={lanche.id}
-            className="rounded-2xl  min-w-80 "
           >
-            <AccordionTrigger>
-              <div className="text-xl flex gap-4">
-              <p>{lanche.nome}</p>
-              <p>( R$ {lanche.preco.toFixed(2)} )</p>
-              </div>
-            </AccordionTrigger>
+            <AccordionItem
+              value="item-1"
+              key={lanche.id}
+              className="rounded-2xl  min-w-80 "
+            >
+              <AccordionTrigger>
+                <div className="text-xl flex gap-4">
+                  <p>{lanche.nome}</p>
+                  <p>( R$ {lanche.preco.toFixed(2)} )</p>
+                </div>
+              </AccordionTrigger>
 
-            <AccordionContent className="flex flex-col gap-4 text-balance">
-              <div className="flex flex-1 flex-col justify-between">
-                <p className="text-sm text-muted-foreground mb-5">
-                  {lanche.descricao}
-                </p>
+              <AccordionContent className="flex flex-col gap-4 text-balance">
+                <div className="flex flex-1 flex-col justify-between">
+                  <p className="text-sm text-muted-foreground mb-5">
+                    {lanche.descricao}
+                  </p>
 
-                <ul className="text-sm list-disc pl-5 mb-3">
-                  {lanche.ingredientes.map((item, idx) => (
-                    <li key={idx}>{item}</li>
-                  ))}
-                </ul>
+                  <ul className="text-sm list-disc pl-5 mb-3">
+                    {lanche.ingredientes.map((item, idx) => (
+                      <li key={idx}>{item}</li>
+                    ))}
+                  </ul>
+                </div>
+              </AccordionContent>
+              <div className="flex justify-between items-center ">
+              
+                  <span className="font-bold text-lg text-green-600">
+                       {quantidade > 0 && (
+                  <p className="text-right text-lg font-semibold text-green-600">
+                    Total: R$ {total}
+                  </p>
+                )}
+                  </span>
+         
+                <div className="flex items-center gap-x-3">
+                  <Button
+                    variant="destructive"
+                    className="text-white"
+                    onClick={() => decrementar(lanche.id)}
+                  >
+                    -
+                  </Button>
+                  <p className="bg-white text-black px-5 font-bold text-2xl rounded-lg ">
+                    {quantidade}
+                  </p>
+                  <Button
+                    variant="default"
+                    className="text-white"
+                    onClick={() => incrementar(lanche.id)}
+                  >
+                    +
+                  </Button>
+                </div>
               </div>
-            </AccordionContent>
-            <div className="flex justify-between items-center ">
-              <span className="font-bold text-lg text-green-600">
-                R$ {lanche.preco.toFixed(2)}
-              </span>
-              <div className="flex items-center gap-x-3">
-                <Button variant="destructive" className="text-white">
-                  -
-                </Button>
-                <p className="bg-white text-black px-5 font-bold text-2xl rounded-lg ">0</p>
-                <Button variant="default" className="text-white">
-                  +
-                </Button>
-              </div>
-            </div>
-          </AccordionItem>
-        </Accordion>
-      ))}
+            </AccordionItem>
+          </Accordion>
+        );
+      })}
     </div>
   );
 };
