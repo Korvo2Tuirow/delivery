@@ -1,99 +1,36 @@
+"use client";
+
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Button } from "@/components/ui/button";
-import { useState } from "react";
 
-const lanches = [
-  {
-    id: 1,
-    nome: "X-Burgão do Chef",
-    descricao: "Clássico suculento com tudo que tem direito",
-    preco: 22.9,
-    ingredientes: [
-      "Pão brioche",
-      "Hambúrguer 180g",
-      "Queijo cheddar",
-      "Alface",
-      "Tomate",
-      "Maionese da casa",
-    ],
-  },
-  {
-    id: 2,
-    nome: "Duplo Smash Nervoso",
-    descricao: "Dois smashs fininhos e crocantes, pra quem curte o crime!",
-    preco: 28.5,
-    ingredientes: [
-      "Pão de batata",
-      "2x Smash 100g",
-      "Queijo prato",
-      "Picles",
-      "Mostarda",
-      "Ketchup",
-    ],
-  },
-  {
-    id: 3,
-    nome: "Churras Baconado",
-    descricao: "Estilo churrasco, com bacon que desmancha na boca",
-    preco: 31.0,
-    ingredientes: [
-      "Pão australiano",
-      "Hambúrguer 200g",
-      "Queijo mussarela",
-      "Bacon crocante",
-      "Molho barbecue",
-      "Cebola caramelizada",
-    ],
-  },
-  {
-    id: 4,
-    nome: "Veggie da Firma",
-    descricao: "Pra galera do verde, mas com muito sabor!",
-    preco: 24.0,
-    ingredientes: [
-      "Pão integral",
-      "Hambúrguer de grão-de-bico",
-      "Alface americana",
-      "Tomate cereja",
-      "Guacamole",
-      "Molho de ervas",
-    ],
-  },
-  {
-    id: 5,
-    nome: "X-Tudo do Zé",
-    descricao: "É TUDO mesmo, irmão!",
-    preco: 33.9,
-    ingredientes: [
-      "Pão francês",
-      "Hambúrguer 180g",
-      "Presunto",
-      "Bacon",
-      "Ovo",
-      "Queijo mussarela",
-      "Alface",
-      "Tomate",
-      "Milho",
-      "Batata palha",
-      "Maionese artesanal",
-    ],
-  },
-];
+import { Button } from "@/components/ui/button";
+import { useEffect, useState } from "react";
+import { lanches } from "@/components/types/lanches"; // Importando o array de lanches
+import { useStore } from "../../../app/uitls/store";
+
+
+
 
 const Cardapio = () => {
+
+
+
   const [quantidades, setQuantidades] = useState<Record<number, number>>({});
+
+  const {adicionarPedido,consoleLog} = useStore();
 
   const incrementar = (id: number) => {
     setQuantidades((prev) => ({
       ...prev,
       [id]: (prev[id] || 0) + 1,
-    }));
-  };
+    }));  
+    adicionarPedido({id});  
+    consoleLog();  
+  } 
 
   const decrementar = (id: number) => {
     setQuantidades((prev) => ({
@@ -104,37 +41,37 @@ const Cardapio = () => {
 
   return (
     <div className="flex flex-wrap gap-4 p-4 justify-center">
-      {lanches.map((lanche) => {
-        const quantidade = quantidades[lanche.id] || 0;
-        const total = (quantidade * lanche.preco).toFixed(2);
+      {lanches.map((lanches) => {
+        const quantidade = quantidades[lanches.id] || 0;
+        const total = (quantidade * lanches.preco).toFixed(2);
 
         return (
           <Accordion
             type="single"
             collapsible
             className="w-full pb-4 px-4 border rounded-lg shadow-md "
-            key={lanche.id}
+            key={lanches.id}
           >
             <AccordionItem
               value="item-1"
-              key={lanche.id}
+              key={lanches.id}
               className="rounded-2xl  min-w-80 "
             >
               <AccordionTrigger>
                 <div className="text-xl flex gap-4">
-                  <p>{lanche.nome}</p>
-                  <p>( R$ {lanche.preco.toFixed(2)} )</p>
+                  <p>{lanches.nome}</p>
+                  <p>( R$ {lanches.preco.toFixed(2)} )</p>
                 </div>
               </AccordionTrigger>
 
               <AccordionContent className="flex flex-col gap-4 text-balance">
                 <div className="flex flex-1 flex-col justify-between">
                   <p className="text-sm text-muted-foreground mb-5">
-                    {lanche.descricao}
+                    {lanches.descricao}
                   </p>
 
                   <ul className="text-sm list-disc pl-5 mb-3">
-                    {lanche.ingredientes.map((item, idx) => (
+                    {lanches.ingredientes.map((item, idx) => (
                       <li key={idx}>{item}</li>
                     ))}
                   </ul>
@@ -154,7 +91,7 @@ const Cardapio = () => {
                   <Button
                     variant="destructive"
                     className="text-white"
-                    onClick={() => decrementar(lanche.id)}
+                    onClick={() => decrementar(lanches.id)}
                   >
                     -
                   </Button>
@@ -164,7 +101,7 @@ const Cardapio = () => {
                   <Button
                     variant="default"
                     className="text-white"
-                    onClick={() => incrementar(lanche.id)}
+                    onClick={() => incrementar(lanches.id)}
                   >
                     +
                   </Button>
