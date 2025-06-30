@@ -14,29 +14,33 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import Cardapio from "./lanches";
 import Pastel from "./pasteis";
+import Cart from "@/hooks/cart";
 
 
 
 export default function ListaLanches() {
   return (
  
-      <Tabs defaultValue="lanches" >
-        <TabsList className=" w-full flex justify-center">
-          <TabsTrigger value="lanches">Lanches</TabsTrigger>
-          <TabsTrigger value="pastel">Pastel</TabsTrigger>
-        </TabsList>
+      <div>
+        
 
-        <TabsContent value="lanches">
-            <Cardapio />
-        </TabsContent>
-
-        <TabsContent value="pastel">             
-           
-          <Pastel />
-                  
-         
-        </TabsContent>
-      </Tabs>
-   
+        <Tabs defaultValue="lanches" >
+          <TabsList className=" w-full flex justify-center">
+            <TabsTrigger value="lanches">Lanches</TabsTrigger>
+            <TabsTrigger value="pastel">Pastel</TabsTrigger>
+          </TabsList>
+          <Cart />
+          <TabsContent value="lanches">
+              <Cardapio />
+          </TabsContent>
+          <TabsContent value="pastel">
+        
+            <Pastel />
+        
+        
+          </TabsContent>
+        </Tabs>
+        
+      </div>
   );
 }

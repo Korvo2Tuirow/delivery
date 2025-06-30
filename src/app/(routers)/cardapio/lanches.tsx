@@ -8,20 +8,15 @@ import {
 } from "@/components/ui/accordion";
 
 import { Button } from "@/components/ui/button";
-import { useEffect, useState } from "react";
-import { lanches } from "@/components/types/lanches"; // Importando o array de lanches
+import { useState } from "react";
+import { lanches } from "@/app/types/lanches"; // Importando o array de lanches
 import { useStore } from "../../../app/uitls/store";
-
-
-
 
 const Cardapio = () => {
 
-
-
   const [quantidades, setQuantidades] = useState<Record<number, number>>({});
 
-  const {adicionarPedido,consoleLog} = useStore();
+  const {adicionarPedido, deletarPedido ,consoleLog} = useStore();
 
   const incrementar = (id: number) => {
     setQuantidades((prev) => ({
@@ -37,6 +32,8 @@ const Cardapio = () => {
       ...prev,
       [id]: Math.max((prev[id] || 0) - 1, 0),
     }));
+    deletarPedido!(id);
+    consoleLog();
   };
 
   return (
@@ -58,7 +55,7 @@ const Cardapio = () => {
               className="rounded-2xl  min-w-80 "
             >
               <AccordionTrigger>
-                <div className="text-xl flex gap-4">
+                <div className="text-[15px] flex gap-4">
                   <p>{lanches.nome}</p>
                   <p>( R$ {lanches.preco.toFixed(2)} )</p>
                 </div>
