@@ -1,4 +1,4 @@
-import { useStore } from "../app/uitls/store";
+import { useStore } from "../app/utils/store";
 import { lanches } from "@/app/types/lanches";
 
 const Cart = () => {

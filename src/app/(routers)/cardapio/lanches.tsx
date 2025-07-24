@@ -8,36 +8,31 @@ import {
 } from "@/components/ui/accordion";
 
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { lanches } from "@/app/types/lanches"; // Importando o array de lanches
-import { useStore } from "../../../app/uitls/store";
+import { useStore } from "../../../app/utils/store";
 
 const Cardapio = () => {
 
   const [quantidades, setQuantidades] = useState<Record<number, number>>({});
 
-  const {adicionarPedido, deletarPedido ,consoleLog} = useStore();
-
-  const incrementar = (id: number) => {
-    setQuantidades((prev) => ({
-      ...prev,
-      [id]: (prev[id] || 0) + 1,
-    }));  
-    adicionarPedido({id});  
-    consoleLog();  
-  } 
+  const store = useStore();
 
   const decrementar = (id: number) => {
-    setQuantidades((prev) => ({
-      ...prev,
-      [id]: Math.max((prev[id] || 0) - 1, 0),
-    }));
-    deletarPedido!(id);
-    consoleLog();
+    
   };
+
+  
+  useEffect(() => {
+   
+  }, [store.quant]);
+ 
+ 
 
   return (
     <div className="flex flex-wrap gap-4 p-4 justify-center">
+
+      
       {lanches.map((lanches) => {
         const quantidade = quantidades[lanches.id] || 0;
         const total = (quantidade * lanches.preco).toFixed(2);
@@ -77,28 +72,28 @@ const Cardapio = () => {
               <div className="flex justify-between items-center ">
               
                   <span className="font-bold text-lg text-green-600">
-                       {quantidade > 0 && (
+                       
                   <p className="text-right text-lg font-semibold text-green-600">
-                    Total: R$ {total}
+                    Total: R$ {(store.quant.filter((item) => item === lanches.id).length * lanches.preco).toFixed(2)}
                   </p>
-                )}
+           
                   </span>
          
                 <div className="flex items-center gap-x-3">
                   <Button
                     variant="destructive"
                     className="text-white"
-                    onClick={() => decrementar(lanches.id)}
+                    onClick={() => store.deletarPedido?.(lanches.id)}
                   >
                     -
                   </Button>
                   <p className="bg-white text-black px-5 font-bold text-2xl rounded-lg ">
-                    {quantidade}
+                   {store.quant.filter((item) => item === lanches.id).length}
                   </p>
                   <Button
                     variant="default"
                     className="text-white"
-                    onClick={() => incrementar(lanches.id)}
+                    onClick={() => store.teste(lanches.id)}
                   >
                     +
                   </Button>
