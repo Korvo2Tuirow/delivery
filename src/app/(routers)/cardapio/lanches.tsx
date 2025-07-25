@@ -12,32 +12,15 @@ import { useEffect, useState } from "react";
 import { lanches } from "@/app/types/lanches"; // Importando o array de lanches
 import { useStore } from "../../../app/utils/store";
 
-const Cardapio = () => {
-
-  const [quantidades, setQuantidades] = useState<Record<number, number>>({});
+const Cardapio = () => { 
 
   const store = useStore();
-
-  const decrementar = (id: number) => {
-    
-  };
-
   
-  useEffect(() => {
-   
-  }, [store.quant]);
- 
- 
-
   return (
     <div className="flex flex-wrap gap-4 p-4 justify-center">
-
       
-      {lanches.map((lanches) => {
-        const quantidade = quantidades[lanches.id] || 0;
-        const total = (quantidade * lanches.preco).toFixed(2);
-
-        return (
+      {lanches.map((lanches) => (
+      
           <Accordion
             type="single"
             collapsible
@@ -101,8 +84,7 @@ const Cardapio = () => {
               </div>
             </AccordionItem>
           </Accordion>
-        );
-      })}
+        ))};
     </div>
   );
 };

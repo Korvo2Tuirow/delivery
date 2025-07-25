@@ -60,6 +60,8 @@ export const useStore = create<StoreState>((set, get) => ({
         const newQuant = [...i.quant, ids]; // Copia o array `quant` e adiciona o novo `ids` no final
         console.log(newQuant);              // Mostra no console o novo estado
         return { quant: newQuant };         // Atualiza o estado com o novo array `quant`
-    })
+    }),
+
+    
 
 }));
